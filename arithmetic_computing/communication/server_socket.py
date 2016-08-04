@@ -39,13 +39,12 @@ class ServerSocket(BaseSocket):
         :param received_callback: Callback to call when the server received data
         :type received_callback: mixed
         """
-        # Bind the socket to the port
         self._unlink_socket()
 
-        self._logger.info('Listening on %s', self._address)
         self._socket.bind(self._address)
 
         # Listen for incoming connections
+        self._logger.info('Listening on %s', self._address)
         self._socket.listen(1)
         try:
             self._wait_for_connection(received_callback)
