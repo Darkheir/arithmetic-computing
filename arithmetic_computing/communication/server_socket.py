@@ -40,10 +40,8 @@ class ServerSocket(BaseSocket):
         :type received_callback: mixed
         """
         self._unlink_socket()
-
         self._socket.bind(self._address)
-
-        # Listen for incoming connections
+        
         self._logger.info('Listening on %s', self._address)
         self._socket.listen(1)
         try:
@@ -89,17 +87,15 @@ class ServerSocket(BaseSocket):
         :type callback: mixed
         """
         # Receive the data in small chunks and retransmit it
-        while True:
-            data = self.receive()
-            self._logger.debug('Data received')
+        data = self.receive()
+        self._logger.debug('Data received')
 
-            result = None
-            if callback is not None:
-                self._logger.debug("Calling the callback")
-                result = callback(data)
-                self._logger.debug('Callback returned')
+        result = None
+        if callback is not None:
+            self._logger.debug("Calling the callback")
+            result = callback(data)
+            self._logger.debug('Callback returned')
 
-            if result is not None:
-                self._logger.debug('Sending back data from callback')
-                self.send(result)
-            break
+        if result is not None:
+            self._logger.debug('Sending back data from callback')
+            self.send(result)
