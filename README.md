@@ -38,10 +38,10 @@ Where:
 
 ### Example
 
-The following command will run the server with 4 processes on a socket located in `/tmp/arithmetic_soc`
+The following command will run the server with 4 processes on a socket located in `/tmp/arithmetic_socket`
 
 ```python
-python server.py -p 4 /tmp/arithmetic_soc
+python server.py -p 4 /tmp/arithmetic_socket
 ```
 
 ## Client side
@@ -60,8 +60,8 @@ Where:
 
 ### Example
 
-The following command will run the client with an operation file located in `~/mis/operations.txt` on a socket located in `/tmp/arithmetic_soc`. It will write the results in `results.txt`
+The following command will run the client with an operation file located in `~/misc/operations.txt` on a socket located in `/tmp/arithmetic_socket`. It will write the results in `results.txt`
 
 ```python
-python client.py ~/mis/operations.txt results.txt /tmp/arithmetic_soc
+python client.py ~/misc/operations.txt results.txt /tmp/arithmetic_socket
 ```
