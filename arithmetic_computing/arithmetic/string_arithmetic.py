@@ -21,6 +21,13 @@ class StringArithmetic(object):
         }
 
     def calculate(self, expr):
+        """Calculate arithmetic operations contained in the given string
+
+        :param expr: String to calculate
+        :type expr: str
+        :return: result of the arithmetic operation
+        :rtype: mixed
+        """
         try:
             body = ast.parse(expr, mode='eval').body
             return self._calculate(body)
@@ -28,6 +35,13 @@ class StringArithmetic(object):
             raise ArithmeticError("Can't calculate %s" % expr, expr)
     
     def _calculate(self, node):
+        """Calculate the node value depending on its type
+
+        :param node: Node to process
+        :type node: ast.AST
+        :return: Result
+        :rtype: mixed
+        """
         if isinstance(node, ast.Num):  # <number>
             return node.n
         elif isinstance(node, ast.BinOp):  # <left> <operator> <right>
