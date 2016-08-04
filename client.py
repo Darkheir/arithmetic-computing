@@ -4,10 +4,10 @@ import sys
 
 from arithmetic_computing.communication.client_socket import ClientSocket
 from arithmetic_computing.communication.communication_error import CommunicationError
-from arithmetic_computing.helper.arguments_parser import ArgumentsParser
+from arithmetic_computing.helper.arguments_parser import parse_client_arguments
 from arithmetic_computing.helper.timer import Timer
 
-from arithmetic_computing.helper.file_access import FileAccess
+from arithmetic_computing.helper.file_access import read_lines, write_lines
 
 
 class Client(object):
@@ -41,7 +41,7 @@ class Client(object):
         :type operation_path: str
         """
         try:
-            self._operations = FileAccess.read_lines(operation_path)
+            self._operations = read_lines(operation_path)
         except IOError, io_error:
             logging.error("Error reading operations: %s", str(io_error))
             logging.info("Exiting")
@@ -54,7 +54,7 @@ class Client(object):
         :type result_path: str
         """
         try:
-            FileAccess.write_lines(result_path, self._calculation_results)
+            write_lines(result_path, self._calculation_results)
         except IOError, io_error:
             logging.error("Error writing result: %s", str(io_error))
             logging.info("Exiting")
@@ -63,7 +63,7 @@ class Client(object):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    operation_file, result_file, socket_address = ArgumentsParser.parse_client_arguments()
+    operation_file, result_file, socket_address = parse_client_arguments()
 
     timer = Timer()
     timer.start()
