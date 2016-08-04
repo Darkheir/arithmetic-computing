@@ -40,11 +40,7 @@ class ServerSocket(BaseSocket):
         :type received_callback: mixed
         """
         # Bind the socket to the port
-        try:
-            os.unlink(self._address)
-        except OSError:
-            if os.path.exists(self._address):
-                raise CommunicationError("Socket address already exists and is not removable")
+        self._unlink_socket()
 
         self._logger.info('Listening on %s', self._address)
         self._socket.bind(self._address)
@@ -56,6 +52,13 @@ class ServerSocket(BaseSocket):
         finally:
             self._logger.debug("Closing main socket")
             self._socket.close()
+
+    def _unlink_socket(self):
+        try:
+            os.unlink(self._address)
+        except OSError:
+            if os.path.exists(self._address):
+                raise CommunicationError("Socket address already exists and is not removable")
 
     def _wait_for_connection(self, callback):
         """Wait for a communication and calls _handle_connection
