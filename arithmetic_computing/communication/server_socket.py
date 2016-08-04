@@ -86,7 +86,6 @@ class ServerSocket(BaseSocket):
         :param callback: Callback to call when the server received data
         :type callback: mixed
         """
-        # Receive the data in small chunks and retransmit it
         data = self.receive()
         self._logger.debug('Data received')
 
