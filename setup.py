@@ -23,4 +23,5 @@ setup(
     packages=find_packages(include=('arithmetic_computing*',)),
     include_package_data=True,
     license='MIT',
+    scripts=['client.py', 'server.py'],
 )
