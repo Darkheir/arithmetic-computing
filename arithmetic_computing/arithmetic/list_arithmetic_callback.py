@@ -14,8 +14,8 @@ class ListArithmeticCallback(object):
      that failed
     """
 
-    def __init__(self):
-        self._calculator = StringArithmetic()
+    def __init__(self, calculator=StringArithmetic()):
+        self._calculator = calculator
         self._logger = logging.getLogger(__name__)
 
     def __call__(self, operations):
