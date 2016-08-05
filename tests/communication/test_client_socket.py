@@ -1,5 +1,6 @@
 from unittest import TestCase
 from socket import error as SocketError
+from socket import socket
 
 import mock
 
@@ -12,6 +13,10 @@ class TestClientSocket(TestCase):
         self._address = "address"
         self._mock_serializer = mock.Mock()
         self._socket = ClientSocket(self._address, serializer=self._mock_serializer)
+
+    def test_connection_socket(self):
+        sock = self._socket.connection_socket
+        self.assertIsInstance(sock, socket)
 
     @mock.patch("arithmetic_computing.communication.client_socket.ClientSocket.connection_socket")
     def test_already_open(self, mock_connection):
@@ -50,6 +55,7 @@ class TestClientSocket(TestCase):
     @mock.patch("arithmetic_computing.communication.client_socket.ClientSocket.connection_socket")
     def test_close_called(self, mock_connection):
         self._socket._connection_open = True
+        mock_connection.close.return_value = True
 
         self._socket.close()
 
