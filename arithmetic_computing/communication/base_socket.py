@@ -23,13 +23,13 @@ class BaseSocket(object):
     It doesn't replace a real integrity control nor an authentication of the data.
     """
 
-    def __init__(self, address, buffer_size=4096, serializer=json, sock=socket.socket):
+    def __init__(self, address, buffer_size=4096, serializer=json):
         self._buffer_size = buffer_size
         address = os.path.expanduser(address)
         address = os.path.abspath(address)
         self._address = address
         self._serializer = serializer
-        self._socket = sock(socket.AF_UNIX, socket.SOCK_STREAM)
+        self._socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self._logger = logging.getLogger(__name__)
 
     @property
