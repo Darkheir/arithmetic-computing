@@ -40,6 +40,10 @@ class TestStringArithmetic(TestCase):
         with self.assertRaises(ArithmeticError):
             self._string_arithmetic.calculate("5 / 0")
 
-    def test_calculate_invalid_operation(self):
+    def test_calculate_unary_operation(self):
+        result = self._string_arithmetic.calculate("--1")
+        self.assertEqual(result, 1)
+
+    def test_calculate_type_error_operation(self):
         with self.assertRaises(ArithmeticError):
-            print self._string_arithmetic.calculate("6 + 5 + p")
+            self._string_arithmetic.calculate("__import__('os')")
