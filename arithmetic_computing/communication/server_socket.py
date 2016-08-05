@@ -51,6 +51,10 @@ class ServerSocket(BaseSocket):
             self._socket.close()
 
     def _unlink_socket(self):
+        """Remove the socket so it can be used again
+
+        If the socket is not removable an exception is raised.
+        """
         try:
             os.unlink(self._address)
         except OSError:
