@@ -31,7 +31,7 @@ class StringArithmetic(object):
         try:
             body = ast.parse(expr, mode='eval').body
             return self._calculate(body)
-        except (TypeError, SyntaxError):
+        except (TypeError, SyntaxError, ZeroDivisionError):
             raise ArithmeticError("Can't calculate %s" % expr, expr)
     
     def _calculate(self, node):
