@@ -32,6 +32,7 @@ class TestClientSocket(TestCase):
         mock_path.expanduser.return_value = self._address
         mock_path.abspath.return_value = self._address
 
+        # Create the socket here so we can patch expanduser and abspath
         socket = ClientSocket(self._address, serializer=self._mock_serializer)
         socket.open()
 
