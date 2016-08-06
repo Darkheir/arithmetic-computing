@@ -32,21 +32,27 @@ python setup.py install
 
 ## Testing
 
+### Easiest way
 To run tests the easiest way is type the following command once in the git repository:
-
 ```bash
 python setup.py test
 ```
+
 It should automatically install tests dependencies (covarage and mock) and run all tests.
 
-Another way is to type:
+### Alternative
+Another way is to first install mock:
+```bash
+pip install mock
+```
 
+And then run tests using unittest:
 ```bash
 python -m unittest discover
 ```
 
+### Code coverage
 To display code coverage tests may be run using the following command:
-
 ```bash
 coverage run -m unittest discover
 ```
@@ -75,7 +81,6 @@ Where:
 #### Example
 
 The following command will run the server with 4 processes on a socket located in `/tmp/arithmetic_socket`
-
 ```bash
 python server.py -p 4 /tmp/arithmetic_socket
 ```
@@ -83,7 +88,6 @@ python server.py -p 4 /tmp/arithmetic_socket
 ### Client side
 
 To launch the client run the following command:
-
 ```bash
 python client.py operation_file result_file socket_address
 ```
@@ -95,7 +99,6 @@ Where:
 #### Example
 
 The following command will run the client with an operation file located in `~/misc/operations.txt` on a socket located in `/tmp/arithmetic_socket`. It will write the results in `results.txt`
-
 ```bash
 python client.py ~/misc/operations.txt results.txt /tmp/arithmetic_socket
 ```
