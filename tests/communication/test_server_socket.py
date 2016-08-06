@@ -116,5 +116,7 @@ class TestServerSocket(TestCase):
         mock_socket.close.assert_called_with()
 
     def test_connection_socket(self):
+        mock_socket = mock.Mock()
+        self._socket._connection_socket = mock_socket
         sock = self._socket.connection_socket
-        self.assertIsInstance(sock, None)
+        self.assertEqual(sock, mock_socket)
