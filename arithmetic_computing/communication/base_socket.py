@@ -1,6 +1,6 @@
 import json
 import socket
-import os
+import os.path
 import logging
 
 
