@@ -3,7 +3,8 @@ import logging
 import sys
 
 from arithmetic_computing.communication.client_socket import ClientSocket
-from arithmetic_computing.communication.communication_error import CommunicationError
+from arithmetic_computing.communication.communication_error \
+    import CommunicationError
 from arithmetic_computing.helper.arguments_parser import parse_client_arguments
 from arithmetic_computing.helper.timer import Timer
 

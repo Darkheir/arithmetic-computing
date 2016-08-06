@@ -1,9 +1,12 @@
+"""Data processing using a callback
+"""
 import logging
 from multiprocessing import Process, Pipe
 
 
 class ListProcessingCallback(object):
-    """Class that will process the content of a list by splitting it in several sub lists.
+    """Class that will process the content of a list
+    by splitting it in several sub lists.
 
     Each sub list will be executed in a different process
 
@@ -49,7 +52,10 @@ class ListProcessingCallback(object):
         processes = []
         for data_list in lists:
             parent_connection, child_connection = Pipe()
-            process = Process(target=self._compute_process, args=(data_list, child_connection,))
+            process = Process(
+                target=self._compute_process,
+                args=(data_list, child_connection,)
+            )
             process.start()
             self._logger.debug("Process started. PID: %d", process.pid)
             processes.append((process, parent_connection))
@@ -73,7 +79,8 @@ class ListProcessingCallback(object):
         return result
 
     def _split_list(self, list_to_split):
-        """Split a list into n parts, n being the number of processes that will later be created
+        """Split a list into n parts, n being
+        the number of processes that will later be created
 
         :param list_to_split: List to split
         :type list_to_split: list
@@ -82,7 +89,8 @@ class ListProcessingCallback(object):
         """
         length = len(list_to_split)
         lists = []
-        self._logger.debug("Splitting list into %d part(s)", self._processes_number)
+        debug_message = "Splitting list into %d part(s)", self._processes_number
+        self._logger.debug(debug_message)
         for i in range(self._processes_number):
             start = i * length // self._processes_number
             end = (i + 1) * length // self._processes_number

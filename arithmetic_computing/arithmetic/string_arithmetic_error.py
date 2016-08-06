@@ -1,3 +1,5 @@
+"""Error for string arithmetic
+"""
 
 
 class StringArithmeticError(ArithmeticError):
@@ -10,4 +12,6 @@ class StringArithmeticError(ArithmeticError):
 
     @property
     def operation(self):
+        """Getter for the operation that raised the error
+        """
         return self._operation

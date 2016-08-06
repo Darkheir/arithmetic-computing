@@ -1,7 +1,11 @@
+"""Callback for arithmetic operations of list of strings
+"""
 import logging
 
-from arithmetic_computing.arithmetic.string_arithmetic_error import StringArithmeticError
-from arithmetic_computing.arithmetic.string_arithmetic import StringArithmetic
+from arithmetic_computing.arithmetic.string_arithmetic_error\
+    import StringArithmeticError
+from arithmetic_computing.arithmetic.string_arithmetic \
+    import StringArithmetic
 
 
 class ListArithmeticCallback(object):
@@ -9,9 +13,9 @@ class ListArithmeticCallback(object):
 
     It returns the list of results as strings.
 
-    In case of the arithmetic calculus failed error(operation_str) is added to the
-     results list in place of the real result where "operation_str" is the operation
-     that failed
+    In case of the arithmetic calculus failed error(operation_str)
+    is added to the results list in place of the real result
+    where "operation_str" is the operation that failed
     """
 
     def __init__(self, calculator=StringArithmetic()):

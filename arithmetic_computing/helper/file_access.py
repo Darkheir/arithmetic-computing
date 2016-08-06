@@ -1,3 +1,5 @@
+"""Function to handle file access operations
+"""
 import os
 import logging
 

@@ -1,9 +1,12 @@
+"""Server part of the socket
+"""
 import json
 import logging
 import os
 
 from arithmetic_computing.communication.base_socket import BaseSocket
-from arithmetic_computing.communication.communication_error import CommunicationError
+from arithmetic_computing.communication.communication_error \
+    import CommunicationError
 
 
 class ServerSocket(BaseSocket):
@@ -19,7 +22,8 @@ class ServerSocket(BaseSocket):
 
     @property
     def connection_socket(self):
-        """In server communication the communication socket is the one we get from "accept" method
+        """In server communication the communication socket is the one
+        we get from "accept" method
 
         :return: Socket
         :rtype: socket.socket
@@ -34,7 +38,8 @@ class ServerSocket(BaseSocket):
             * call the callback method with the received data as a parameter
             * send back the returned value.
 
-        The callback must have one parameter, the data received and return a serializable value
+        The callback must have one parameter, the data received
+        and return a serializable value
 
         :param received_callback: Callback to call when the server received data
         :type received_callback: mixed
@@ -59,12 +64,14 @@ class ServerSocket(BaseSocket):
             os.unlink(self._address)
         except OSError:
             if os.path.exists(self._address):
-                raise CommunicationError("Socket address already exists and is not removable")
+                error = "Socket address already exists and is not removable"
+                raise CommunicationError(error)
 
     def _wait_for_connection_loop(self, callback):
         """Infinite loop to serve client requests.
 
-        The infinite loop has been split in its own method so we still can test the rest
+        The infinite loop has been split in its own method
+        so we still can test the rest
 
         :param callback: Callback to call when the server received data
         :type callback: mixed
@@ -80,7 +87,7 @@ class ServerSocket(BaseSocket):
         :type callback: mixed
         """
         self._logger.info('Waiting for a connection ...')
-        self._connection_socket, client_address = self._socket.accept()
+        self._connection_socket, _ = self._socket.accept()
         self._logger.info('Connection received')
         try:
             self._handle_connection(callback)
@@ -93,7 +100,7 @@ class ServerSocket(BaseSocket):
     def _handle_connection(self, callback):
         """Handle a communication, it will:
             * Receive data from the client
-            * Call the callback with the received data and get the returned value
+            * Call the callback with the received data and get the result
             * Send back the returned data if there are any
 
         :param callback: Callback to call when the server received data

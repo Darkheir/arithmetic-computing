@@ -1,8 +1,11 @@
+"""Client part of socket communication
+"""
 import json
 import socket
 
 from arithmetic_computing.communication.base_socket import BaseSocket
-from arithmetic_computing.communication.communication_error import CommunicationError
+from arithmetic_computing.communication.communication_error \
+    import CommunicationError
 
 
 class ClientSocket(BaseSocket):
@@ -16,7 +19,8 @@ class ClientSocket(BaseSocket):
 
     @property
     def connection_socket(self):
-        """In client communication there is only one socket so we return the base one
+        """In client communication there is only one socket
+         so we return the base one
 
         :return: Socket
         :rtype: socket.socket
@@ -33,7 +37,8 @@ class ClientSocket(BaseSocket):
             self.connection_socket.connect(self._address)
             self._connection_open = True
         except socket.error, error:
-            raise CommunicationError("Can't connect to the server, %s" % str(error))
+            error_message = "Can't connect to the server, %s" % str(error)
+            raise CommunicationError(error_message)
 
     def close(self):
         """Close the communication

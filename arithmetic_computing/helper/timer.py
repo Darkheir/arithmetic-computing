@@ -1,3 +1,5 @@
+"""Small timer
+"""
 import time
 
 
@@ -32,7 +34,8 @@ class Timer(object):
         # Use float to have  more precision than the second
         return float(actual - self._start) / 1000
 
-    def _get_current_time(self):
+    @staticmethod
+    def _get_current_time():
         """Get the current time
         :return: Current time
         :rtype: int

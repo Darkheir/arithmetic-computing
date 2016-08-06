@@ -1,3 +1,5 @@
+"""Functions to parse command line arguments
+"""
 import argparse
 
 
@@ -7,9 +9,11 @@ def parse_client_arguments():
     :rtype: tuple[string]
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation_file", help="File containing the operations to calculate")
+    parser.add_argument("operation_file",
+                        help="File containing the operations to calculate")
     parser.add_argument("result_file", help="File to write the results to")
-    parser.add_argument("socket_address", help="Socket to use to communicate with the server")
+    parser.add_argument("socket_address",
+                        help="Socket to use to communicate with the server")
     args = parser.parse_args()
     return args.operation_file, args.result_file, args.socket_address
 
@@ -20,10 +24,18 @@ def parse_server_arguments():
     :return: Parsed arguments
     :rtype: tuple[mixed]
     """
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("socket_address", help="Socket to use to communicate with the server")
-    parser.add_argument("-p", "--processes", type=check_processes, default=4,
-                        help="Number of processes to start to run arithmetic. Maximum is 10")
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument("socket_address",
+                        help="Socket to use to communicate with the server")
+    parser.add_argument(
+        "-p",
+        "--processes",
+        type=check_processes,
+        default=4,
+        help="Number of processes to start to run arithmetic. Maximum is 10"
+    )
     args = parser.parse_args()
     return args.socket_address, args.processes
 
@@ -42,5 +54,6 @@ def check_processes(value):
     """
     processes = int(value)
     if processes < 1 or processes > 10:
-        raise argparse.ArgumentTypeError("%s is an invalid int value between 1 and 10" % value)
+        error_message = "%s is an invalid int value between 1 and 10" % value
+        raise argparse.ArgumentTypeError(error_message)
     return processes

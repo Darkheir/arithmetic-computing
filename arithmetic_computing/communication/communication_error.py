@@ -1,3 +1,5 @@
+"""Error for socket communications
+"""
 
 
 class CommunicationError(Exception):

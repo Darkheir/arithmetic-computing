@@ -1,3 +1,5 @@
+"""Base for socket communication
+"""
 import json
 import socket
 import os.path
@@ -11,16 +13,21 @@ class BaseSocket(object):
      * Send data
      * Receive data
 
-    In this implementation the data is serialized before being sent and deserialized after being received
-    The serializer can be specified in the constructor. It must implements 2 methods:
+    In this implementation the data is serialized before being sent
+    and deserialized after being received.
+    The serializer can be specified in the constructor.
+    It must implements 2 methods:
         * dumps to serialize data
         * loads to deserialize data
 
-    To control that all the data has been received a very simple mechanism is used:
+    To control that all the data has been received
+    a very simple mechanism is used:
     Before sending data we calculate the size of the serialized data to send
-    and it is added at the begging of the data. This lets us be sure all the data has been send.
+    and it is added at the begging of the data.
+    This lets us be sure all the data has been send.
 
-    It doesn't replace a real integrity control nor an authentication of the data.
+    It doesn't replace a real integrity control
+    nor an authentication of the data.
     """
 
     def __init__(self, address, buffer_size=4096, serializer=json):
@@ -34,6 +41,10 @@ class BaseSocket(object):
 
     @property
     def connection_socket(self):
+        """Connection socket used during communication.
+
+        Each subclass must implement it
+        """
         raise NotImplementedError("Child classes must implement this method")
 
     def send(self, data):
