@@ -41,11 +41,11 @@ class ServerSocket(BaseSocket):
         """
         self._unlink_socket()
         self._socket.bind(self._address)
-        
+
         self._logger.info('Listening on %s', self._address)
         self._socket.listen(1)
         try:
-            self._wait_for_connection(received_callback)
+            self._wait_for_connection_loop(received_callback)
         finally:
             self._logger.debug("Closing main socket")
             self._socket.close()
@@ -61,6 +61,17 @@ class ServerSocket(BaseSocket):
             if os.path.exists(self._address):
                 raise CommunicationError("Socket address already exists and is not removable")
 
+    def _wait_for_connection_loop(self, callback):
+        """Infinite loop to serve client requests.
+
+        The infinite loop has been split in its own method so we still can test the rest
+
+        :param callback: Callback to call when the server received data
+        :type callback: mixed
+        """
+        while True:
+            self._wait_for_connection(callback)
+
     def _wait_for_connection(self, callback):
         """Wait for a communication and calls _handle_connection
         once a link has been established
@@ -68,18 +79,16 @@ class ServerSocket(BaseSocket):
         :param callback: Callback to call when the server received data
         :type callback: mixed
         """
-        while True:
-            # Wait for a communication
-            self._logger.info('Waiting for a connection ...')
-            self._connection_socket, client_address = self._socket.accept()
-            self._logger.info('Connection received')
-            try:
-                self._handle_connection(callback)
-            finally:
-                # Clean up the communication
-                self._connection_socket.close()
-                self._connection_socket = None
-                self._logger.info("End of communication")
+        self._logger.info('Waiting for a connection ...')
+        self._connection_socket, client_address = self._socket.accept()
+        self._logger.info('Connection received')
+        try:
+            self._handle_connection(callback)
+        finally:
+            # Clean up the communication
+            self._connection_socket.close()
+            self._connection_socket = None
+            self._logger.info("End of communication")
 
     def _handle_connection(self, callback):
         """Handle a communication, it will:
