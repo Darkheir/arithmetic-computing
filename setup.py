@@ -24,7 +24,6 @@ setup(
     include_package_data=True,
     license='MIT',
     scripts=['client.py', 'server.py'],
-    extras_require={
-        'test': ['coverage', 'mock'],
-    },
+    tests_require=['coverage', 'mock'],
+    test_suite="tests",
 )
