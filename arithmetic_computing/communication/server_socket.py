@@ -26,7 +26,7 @@ class ServerSocket(BaseSocket):
         """
         return self._connection_socket
 
-    def serve(self, received_callback=None):
+    def serve(self, received_callback):
         """Wait for a client to connect.
 
         When a client is connected it will:
@@ -81,10 +81,10 @@ class ServerSocket(BaseSocket):
                 self._connection_socket = None
                 self._logger.info("End of communication")
 
-    def _handle_connection(self, callback=None):
+    def _handle_connection(self, callback):
         """Handle a communication, it will:
             * Receive data from the client
-            * If a callback is set call it with the received data and get the returned value
+            * Call the callback with the received data and get the returned value
             * Send back the returned data if there are any
 
         :param callback: Callback to call when the server received data
@@ -93,11 +93,9 @@ class ServerSocket(BaseSocket):
         data = self.receive()
         self._logger.debug('Data received')
 
-        result = None
-        if callback is not None:
-            self._logger.debug("Calling the callback")
-            result = callback(data)
-            self._logger.debug('Callback returned')
+        self._logger.debug("Calling the callback")
+        result = callback(data)
+        self._logger.debug('Callback returned')
 
         if result is not None:
             self._logger.debug('Sending back data from callback')
