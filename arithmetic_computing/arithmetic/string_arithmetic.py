@@ -1,7 +1,7 @@
 import ast
 import operator as op
 
-from arithmetic_computing.arithmetic.arithmetic_error import ArithmeticError
+from arithmetic_computing.arithmetic.string_arithmetic_error import StringArithmeticError
 
 
 class StringArithmetic(object):
@@ -32,7 +32,7 @@ class StringArithmetic(object):
             body = ast.parse(expr, mode='eval').body
             return self._calculate(body)
         except (TypeError, SyntaxError, ZeroDivisionError):
-            raise ArithmeticError("Can't calculate %s" % expr, expr)
+            raise StringArithmeticError("Can't calculate %s" % expr, expr)
     
     def _calculate(self, node):
         """Calculate the node value depending on its type

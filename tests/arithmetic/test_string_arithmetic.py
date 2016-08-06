@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from arithmetic_computing.arithmetic.string_arithmetic import StringArithmetic
-from arithmetic_computing.arithmetic.arithmetic_error import ArithmeticError
+from arithmetic_computing.arithmetic.string_arithmetic_error import StringArithmeticError
 
 
 class TestStringArithmetic(TestCase):
@@ -10,7 +10,7 @@ class TestStringArithmetic(TestCase):
         self._string_arithmetic = StringArithmetic()
 
     def test_calculate_bad_expression(self):
-        with self.assertRaises(ArithmeticError):
+        with self.assertRaises(StringArithmeticError):
             self._string_arithmetic.calculate("nothing good")
 
     def test_calculate_simple_addition(self):
@@ -37,7 +37,7 @@ class TestStringArithmetic(TestCase):
         self.assertEqual(result, expected)
 
     def test_calculate_division_by_zero(self):
-        with self.assertRaises(ArithmeticError):
+        with self.assertRaises(StringArithmeticError):
             self._string_arithmetic.calculate("5 / 0")
 
     def test_calculate_unary_operation(self):
@@ -45,5 +45,5 @@ class TestStringArithmetic(TestCase):
         self.assertEqual(result, 1)
 
     def test_calculate_type_error_operation(self):
-        with self.assertRaises(ArithmeticError):
+        with self.assertRaises(StringArithmeticError):
             self._string_arithmetic.calculate("__import__('os')")

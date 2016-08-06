@@ -1,6 +1,6 @@
 import logging
 
-from arithmetic_computing.arithmetic.arithmetic_error import ArithmeticError
+from arithmetic_computing.arithmetic.string_arithmetic_error import StringArithmeticError
 from arithmetic_computing.arithmetic.string_arithmetic import StringArithmetic
 
 
@@ -30,7 +30,7 @@ class ListArithmeticCallback(object):
         for operation in operations:
             try:
                 result = str(self._calculator.calculate(operation))
-            except ArithmeticError, error:
+            except StringArithmeticError, error:
                 self._logger.warning(error.message)
                 # Silently add "error(operation_str)" in place of the result
                 result = "error(%s)" % error.operation
