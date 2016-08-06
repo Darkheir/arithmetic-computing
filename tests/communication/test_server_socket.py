@@ -68,6 +68,7 @@ class TestServerSocket(TestCase):
     @mock.patch('arithmetic_computing.communication.base_socket.BaseSocket.send')
     def test_handle_connection_send_called(self, mock_send, mock_receive):
         mock_receive.return_value = "Fake Data"
+        mock_send.return_value = True
         callback = mock.Mock()
         callback.return_value = "Fake callback"
 
@@ -113,3 +114,7 @@ class TestServerSocket(TestCase):
         self._socket.serve(callback)
 
         mock_socket.close.assert_called_with()
+
+    def test_connection_socket(self):
+        sock = self._socket.connection_socket
+        self.assertIsInstance(sock, None)
