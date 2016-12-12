@@ -75,7 +75,7 @@ class ListProcessingCallback(object):
             result.extend(connection.recv())
             # Wait for the process to terminate
             process.join()
-            self._logger.debug("Process with PID %d has finished", process.pid)
+            # self._logger.debug("Process with PID %d has finished", process.pid)
         return result
 
     def _split_list(self, list_to_split):
