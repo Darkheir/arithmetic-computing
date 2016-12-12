@@ -57,7 +57,7 @@ class ListProcessingCallback(object):
                 args=(data_list, child_connection,)
             )
             process.start()
-            self._logger.debug("Process started. PID: %d", process.pid)
+            # self._logger.debug("Process started. PID: %d", process.pid)
             processes.append((process, parent_connection))
         return processes
 
